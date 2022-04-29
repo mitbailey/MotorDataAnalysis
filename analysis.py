@@ -22,6 +22,7 @@ print(encoder_filenames)
 print(motor_filenames)
 
 # %%
+index = 0
 for i, fname in enumerate(encoder_filenames):
     data = np.loadtxt("data/" + fname, dtype = int, delimiter = ',').transpose()
     print(data.shape)   
@@ -59,23 +60,15 @@ for i, fname in enumerate(encoder_filenames):
         else: # error
             data[1][i] = 0
 
-    # for i in range(len(data[1])):
-    # data[1][i] >>= 5
-    # data[1][i] &= 0x7ffff
-
-    # data_clean = []
-    # for i in range (len(data[1])):
-    #     if (data[1][i] > 0):
-    #         data_clean[0].append(data[0][i])
-    #         data_clean[1].append(data[1][i])
-
-    # for i in range(len(data[1])):
-    #     if data[1][i] <= 0:
-    #         np.delete(data[1])
-
+    # Plot the data.
     plt.plot(data[0], data[1])
-    plt.plot(f_data_t, f_data_d, color = 'r')
+    plt.plot(f_data_t, f_data_d, color = 'r', ls='dashed', linewidth=0.5)
+    plt.plot(f_data_t, f_data_d, marker="o", markersize=2, color = 'r', ls = '')
+    # plt.xlim(4.5e12+1.6510700000e18, 6.0e12+1.6510700000e18)
+    plt.savefig('data_graph_' + str(index) + '.pdf')
     plt.show()
+
+    index += 1
 # %%
 for i, fname in enumerate(motor_filenames):
     data = np.loadtxt("data/" + fname, dtype = float).transpose()
@@ -94,4 +87,5 @@ for i, fname in enumerate(motor_filenames):
     plt.axvline(x = ddata_avg - width * 0.5, color = 'm')
     plt.show()
 # %%
+
 # %%
