@@ -64,8 +64,13 @@ for i, fname in enumerate(encoder_filenames):
     plt.plot(data[0], data[1])
     plt.plot(f_data_t, f_data_d, color = 'r', ls='dashed', linewidth=0.5)
     plt.plot(f_data_t, f_data_d, marker="o", markersize=2, color = 'r', ls = '')
-    # plt.xlim(4.5e12+1.6510700000e18, 6.0e12+1.6510700000e18)
-    plt.savefig('data_graph_' + str(index) + '.pdf')
+    f_data_t = np.asarray(f_data_t)
+    f_data_d = np.asarray(f_data_d)
+    idx = np.where((f_data_t > 2.1e9 + 1.6512598100e18) & (f_data_t < 2.45e9 + 1.6512598100e18))
+    print(f_data_d[idx].min(), f_data_d[idx].max())
+    plt.xlim(59.812e12+1.6512e18, 59.813e12+1.6512e18)
+    plt.ylim(349200, 349210)
+    plt.savefig('data_graph_zoomedj_' + str(index) + '.pdf')
     plt.show()
 
     index += 1
@@ -85,6 +90,7 @@ for i, fname in enumerate(motor_filenames):
     plt.axvline(x = ddata_avg, color = 'r')
     plt.axvline(x = ddata_avg + width * 0.5, color = 'm')
     plt.axvline(x = ddata_avg - width * 0.5, color = 'm')
+    plt.savefig('data_graph_zoomed_' + str(index) + '.pdf')
     plt.show()
 # %%
 
